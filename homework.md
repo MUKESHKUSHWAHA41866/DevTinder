@@ -14,3 +14,8 @@ initialize git
 Create a remote repo on github
 Push all code to remote origin
 Play with routes and route extensions ex. /hello,/hello/2, /test. /
+Write logic to handle GET,POST, PATCH , DELETE API calls and test them on postman 
+Explore routing and use of ?, +, (), * in the routes
+Use of regex in routes /a/, /.*fly$/
+Reading the query params in the routes
+Reading the dynamic routes 
