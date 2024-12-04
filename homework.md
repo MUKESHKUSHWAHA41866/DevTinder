@@ -8,3 +8,9 @@ Insall nodemon and update scripts inside package.json
 What are dependencies
 What is the use of "-g" while npm install
 Difference bitween caret and tilde (^ vs ~)
+
+initialize git
+.gitinore
+Create a remote repo on github
+Push all code to remote origin
+Play with routes and route extensions ex. /hello,/hello/2, /test. /
