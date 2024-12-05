@@ -1,29 +1,23 @@
  const express = require("express");
 
  const app = express();
+const {adminAuth, userAuth} = require("./middlewares/auth")
 
-//  app.get("/user/:userId/:name/:password",(req, res)=>{
-//    console.log(req.params);
-   
-//    res.send({firstName: "Mukesh",lastName: "kushwaha"})
-//  })
-
-// app.use("/routes", rH, [rh2, rh3], rh4, rh5);
-
-app.use("/user", (req,res,next) =>{
-  console.log("Handleing the route user!!");
-  next();
-  
-},
-(req,res,next)=>{
-  console.log("Handling 2 route");
-  next();
-},
-(req,res,next)=>{
-  console.log("Handleing 3 routes");
-  res.send("Hello mukesh")
+ app.use("/admin",adminAuth )
+//  app.use("/user",userAuth )
+ 
+app.post("/user/login", (req,res)=>{
+  res.send("User logged in successfully")
 })
-  
+ app.get("/user",userAuth, (req,res)=>{
+  res.send("user Data Sent");
+ })
+ 
+app.get("/admin/getAllData", (req,res,next) =>{
+    res.send("All Data Sent")
+})
+ 
+ 
 
  app.listen(777,()=> {
     console.log("Server is successfully listing on port 7777...");
