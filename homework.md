@@ -30,3 +30,12 @@ Difference app.use and app.all
 write a dummy auth middleware for admin
 write a dummy auth middleware for all user routes , except /user /login
 Error Handling usingapp.use("/", (err, req,res, next)=>{});
+
+
+
+
+Validate data in Signup API
+Install bcryptpackage
+Create PasswordHash using bcrypt.hash & save the user is excrupted password
+Create login API
+Compare password and throw error if email or password is invalid

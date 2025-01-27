@@ -14,7 +14,9 @@
   "author": "Mukesh Kushwaha",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "express": "^4.21.1",
-    "mongoose": "^8.8.4"
+    "mongoose": "^8.8.4",
+    "validator": "^13.12.0"
   }
 }
