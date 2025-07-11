@@ -5,10 +5,21 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const cors = require("cors")
 
-app.use(cors({
-   origin: "http://localhost:5173",
-   credentials: true,
-}));
+
+// app.use(cors({
+//    origin: "http://localhost:5173",
+//    credentials: true,
+// }));
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      return callback(null, true); // allow all origins
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
