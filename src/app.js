@@ -4,6 +4,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const cors = require("cors")
+require('dotenv').config();
 
 
 // app.use(cors({
@@ -37,7 +38,7 @@ app.use("/", userRouter);
   .then(()=>{
     console.log("Database connection established...");
 
-    app.listen(7777,()=> {
+    app.listen(process.env.PORT,()=> {
       console.log("Server is successfully listing on port 7777...");
       
    });

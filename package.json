@@ -14,9 +14,11 @@
   "author": "Mukesh Kushwaha",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.879.0",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.4",
