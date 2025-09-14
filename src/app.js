@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors")
 require('dotenv').config();
 
-require("./utils/cronJob.js");
+require("./utils/cronjob.js");
 
 
 // app.use(cors({
