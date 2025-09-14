@@ -52,6 +52,18 @@ const userSchema = new mongoose.Schema({
         //     }
         // },
     },
+    isPremium:{
+       type: String,
+       default: false,
+    },
+    membershipType: {
+        type: String,
+    },
+    membershipValidity:{
+        type: Date,
+    default: null
+    },
+
     photoUrl: {
         type: String,
         default: "https://avatars.githubusercontent.com/u/7790161?v=4",
