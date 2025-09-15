@@ -3,4 +3,10 @@ const membershipAmount = {
     gold: 700,
 };
 
-module.exports = {membershipAmount};
+// validity in months for each plan
+const membershipDuration = {
+  silver: 3,
+  gold: 6,
+};
+
+module.exports = {membershipAmount,membershipDuration};

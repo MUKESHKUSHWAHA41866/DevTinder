@@ -4,7 +4,7 @@ const paymentRouter = express.Router();
 const razorpayInstance = require("../utils/razorpay");
 const Payment = require("../models/payment");
 const User = require("../models/user");
-const { membershipAmount } = require("../utils/constants");
+const { membershipAmount,membershipDuration } = require("../utils/constants");
 const {validateWebhookSignature} = require('razorpay/dist/utils/razorpay-utils')
 
 
@@ -70,12 +70,43 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
     await payment.save();
     console.log("Payment saved");
 
-    const user = await User.findOne({ _id: payment.userId });
+    // const user = await User.findOne({ _id: payment.userId });
+    // user.isPremium = true;
+    // user.membershipType = payment.notes.membershipType;
+    // console.log("User saved");
+
+    // await user.save();
+
+
+    const user = await User.findById(payment.userId);
+
+if (user) {
+  const plan = (payment.notes.membershipType || "").toLowerCase();
+  const months = membershipDuration[plan] || 0;
+
+  if (months > 0) {
+    const now = new Date();
+
+    // if user already has active premium, extend from current validity
+    const baseDate =
+      user.membershipValidity && new Date(user.membershipValidity) > now
+        ? new Date(user.membershipValidity)
+        : now;
+
+    const newValidity = new Date(baseDate);
+    newValidity.setMonth(newValidity.getMonth() + months);
+
     user.isPremium = true;
-    user.membershipType = payment.notes.membershipType;
-    console.log("User saved");
+    user.membershipType = plan;
+    user.membershipValidity = newValidity;
 
     await user.save();
+    console.log(
+      `✅ User ${user._id} upgraded to ${plan}, valid till ${newValidity}`
+    );
+  }
+}
+
 
     // Update the user as premium
 
@@ -92,13 +123,25 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
   }
 });
 
+// paymentRouter.get("/premium/verify", userAuth, async (req, res) => {
+//   const user = req.user.toJSON();
+//   console.log(user);
+//   if (user.isPremium) {
+//     return res.json({ ...user });
+//   }
+//   return res.json({ ...user });
+// });
+
 paymentRouter.get("/premium/verify", userAuth, async (req, res) => {
-  const user = req.user.toJSON();
-  console.log(user);
-  if (user.isPremium) {
-    return res.json({ ...user });
+  const user = await User.findById(req.user._id).lean();
+  const now = new Date();
+
+  let isActive = false;
+  if (user.isPremium && user.membershipValidity && new Date(user.membershipValidity) > now) {
+    isActive = true;
   }
-  return res.json({ ...user });
+
+  return res.json({ ...user, isPremium: isActive });
 });
 
 module.exports = paymentRouter;
