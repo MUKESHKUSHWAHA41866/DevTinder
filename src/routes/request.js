@@ -51,7 +51,8 @@ console.log("about to send email");
        try {
   const emailRes = await sendEmail.run(
     "A new friend request from " + status + " "+ req.user.firstName,
-    req.user.firstName + " is " + status + " in " + toUser.firstName
+    req.user.firstName + " is " + status + " in " + toUser.firstName,
+    toUser.emailId
   );
   console.log("emailRes:", emailRes);
 } catch (e) {

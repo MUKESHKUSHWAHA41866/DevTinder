@@ -22,7 +22,29 @@ chatRouter.get("/chat/:targetUserId", userAuth, async (req, res) => {
       });
       await chat.save();
     }
-    res.json(chat);
+
+    // normalize message objects for the client
+    const response = {
+      _id: chat._id,
+      participants: chat.participants,
+      messages: chat.messages.map((m) => {
+        // m.senderId may be populated or just an ObjectId
+        const sender = typeof m.senderId === "object" ? m.senderId : { _id: m.senderId };
+        return {
+          messageId: m._id,
+          senderId: sender._id,
+          senderFirstName: sender.firstName || null,
+          senderLastName: sender.lastName || null,
+          text: m.text,
+          status: m.status,
+          createdAt: m.createdAt,
+          deliveredAt: m.deliveredAt,
+          seenAt: m.seenAt,
+        };
+      }),
+    };
+
+    res.json(response);
   } catch (err) {
     console.error(err);
   }

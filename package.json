@@ -14,7 +14,6 @@
   "author": "Mukesh Kushwaha",
   "license": "ISC",
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.879.0",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -24,6 +23,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.4",
     "node-cron": "^4.2.1",
+    "nodemailer": "^10.0.10",
     "razorpay": "^2.9.6",
     "socket.io": "^4.8.3",
     "validator": "^13.12.0"
